@@ -58,7 +58,7 @@ jobs:
         commenter_input: ${{ format('{0}{1}', steps.plan.outputs.stdout, steps.plan.outputs.stderr) }}
         commenter_exitcode: ${{ steps.plan.outputs.exitcode }}
       env:
-       GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+       GITHUB_TOKEN: ${{ secrets.GOOGLE_CREDENTIALS }}
       #working-directory: ${{ env.ROOT_PATH }}
 
     - name: Terraform Apply
