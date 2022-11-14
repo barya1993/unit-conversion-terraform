@@ -59,7 +59,7 @@ jobs:
         commenter_exitcode: ${{ steps.plan.outputs.exitcode }}
       env:
        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-      working-directory: ${{ env.ROOT_PATH }}
+      #working-directory: ${{ env.ROOT_PATH }}
 
     - name: Terraform Apply
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
