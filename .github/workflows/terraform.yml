@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ROOT_PATH: './temprature-challange-terraform'
+    run: |
+      pwd
+
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest here is Nitish
     defaults:
