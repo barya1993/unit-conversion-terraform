@@ -15,7 +15,7 @@ provider "google" {
   zone    = "us-central1-c"
 }
 
-module "bucket" {
+module bucket {
   source     = "terraform-google-modules/cloud-storage/google"
   project_id = "secure-proxy-367022"
   location   = "us-central1"
