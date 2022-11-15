@@ -8,8 +8,6 @@ terraform {
 }
 
 provider "google" {
-  credentials = file("/Users/nbarya/Downloads/secure-proxy-367022-c486c4b23209.json")
-
   project = "secure-proxy-367022"
   region  = "us-central1"
   zone    = "us-central1-c"
