@@ -16,7 +16,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: temprature-challange-terraform
+        working-directory: cloud-run-terraform
 
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -26,8 +26,8 @@ jobs:
       id: filter
       with:
         filters: |
-           temprature-challange-terraform:
-             - 'temprature-challange-terraform/**'
+           cloud-run-terraform:
+             - 'cloud-run-terraform/**'
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
@@ -35,7 +35,7 @@ jobs:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      if: steps.filter.outputs.temprature-challange-terraform == 'true'
+      if: steps.filter.outputs.cloud-run-terraform == 'true'
       run: terraform init
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
@@ -43,12 +43,12 @@ jobs:
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
-      if: steps.filter.outputs.temprature-challange-terraform == 'true'
+      if: steps.filter.outputs.cloud-run-terraform == 'true'
       run: terraform fmt -check
       #working-directory: ${{ env.ROOT_PATH }}
 
     - name: Terraform Plan
-      if: steps.filter.outputs.temprature-challange-terraform == 'true'
+      if: steps.filter.outputs.cloud-run-terraform == 'true'
       id: plan
       # if: github.event_name == 'pull_request' || github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: terraform plan -out=tfplan -input=false -no-color
@@ -58,7 +58,7 @@ jobs:
       #working-directory: ${{ env.ROOT_PATH }}
 
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/master' && github.event_name == 'push' && steps.filter.outputs.temprature-challange-terraform == 'true'
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push' && steps.filter.outputs.cloud-run-terraform == 'true'
       run: terraform apply "tfplan"
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
