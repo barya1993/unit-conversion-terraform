@@ -11,7 +11,7 @@ module "lb-http" {
   source  = "GoogleCloudPlatform/lb-http/google//modules/serverless_negs"
   version = "~> 6.3"
   name    = var.lb_name
-  project = var.project_id
+  project = "secure-proxy-367022"
 
   labels = { "cloud-run" = "unit-conversion-frontend" }
 
