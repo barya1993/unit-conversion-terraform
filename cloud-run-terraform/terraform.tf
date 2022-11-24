@@ -2,19 +2,18 @@ terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "4.41.0"
+      version = ">= 3.53, < 5.0"
+    }
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = ">= 3.53, < 5.0"
     }
   }
+  required_version = ">= 0.13"
 }
-
-provider "google" {
-  project = "secure-proxy-367022"
-  region  = "global"
-}
-
 terraform {
   backend "gcs" {
     bucket = "terraform-us-central1-bucket"
-    prefix = "terraform/cloudbuild/state"
+    prefix = "terraform/cloudrun/state"
   }
 }
