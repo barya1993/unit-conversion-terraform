@@ -1,0 +1,43 @@
+on:
+  workflow_dispatch:
+    inputs:
+      terraform_dir:
+        description: "Terraform dir for destroy: temprature-challange-terraform, cloud-build-terraform, cloud-run-terraform"
+        required: true
+        default: "cloud-run-terraform"
+        type: choice
+        options:
+          - temprature-challange-terraform
+          - cloud-build-terraform
+          - cloud-run-terraform
+
+jobs:
+  terraform:
+    name: "terraform"
+    runs-on: ubuntu-latest
+    defaults:
+        run:
+          shell: bash
+          working-directory: ${{ github.event.inputs.terraform_dir}}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform init
+        run: terraform init
+        env:
+         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+      - name: Show Terraform plan destroy
+        run: terraform plan -destroy -out=tfdestroy -input=false -no-color
+        env:
+         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+
+      - name: Terraform destroy
+        run: terraform destroy --auto-approve
+        env:
+         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
