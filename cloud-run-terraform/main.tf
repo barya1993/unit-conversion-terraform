@@ -75,6 +75,13 @@ resource "google_cloud_run_service" "default" {
       "run.googleapis.com/ingress" = "all"
     }
   }
+  resource "google_cloud_run_service_iam_member" "public-access" {
+    location = google_cloud_run_service.default.location
+    project  = google_cloud_run_service.default.project
+    service  = google_cloud_run_service.default.name
+    role     = "roles/run.invoker"
+    member   = "allUsers"
+  }
 }
 
 # [END cloudloadbalancing_ext_http_cloudrun]
