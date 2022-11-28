@@ -13,7 +13,7 @@ module "lb-http" {
   name    = var.lb_name
   project = "secure-proxy-367022"
 
-  labels = { "cloud-run" = "unit-conversion-frontend" }
+  labels = { "cloud-run" = "unit-conversion-frontend_for_experiment" }
 
   backends = {
     default = {
